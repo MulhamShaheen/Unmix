@@ -1,0 +1,10 @@
+body{
+    background: linear-gradient(178.7deg, #001506 15.13%, rgba(22, 219, 101, 0.74) 103.97%);
+    height: 100%;
+    width: 100%;
+}
+
+.u-container{
+background: rgba(212, 255, 226, 0.39);
+border-radius: 35px;
+}

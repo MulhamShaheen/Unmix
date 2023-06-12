@@ -1,0 +1,68 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% tailwind_css %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body class="h-screen">
+<header class="">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <div class="flex lg:flex-1">
+            <a href="#" class="-m-1.5 p-1.5">
+                <img src="{% static 'img/Unmix.png' %}" alt="" width="100">
+            </a>
+        </div>
+        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+            <a href="{% url 'logout' %}" class="text-sm font-semibold leading-6 text-white px-3">Log out </a>
+            <a href="{% url 'profile' %}"
+               class="text-sm font-semibold leading-6 text-green-500 px-3">Account</a>
+        </div>
+
+    </nav>
+</header>
+<div class="flex flex-col items-center container w-full h-full">
+    <div class="u-container mt-14 p-6 w-1/3 h-fit">
+        <h1 class="text-center text-4xl pb-6">
+            Start unmixing
+        </h1>
+        <form action="{% url 'home' %}" method="post" class="post-form items-center flex flex-col gap-y-6"
+              enctype="multipart/form-data">
+            {% csrf_token %}
+            <label class="w-full" for="id_file">Upload <b>wav/mp3</b> audio file:</label>
+            <input class="w-full" type="file" name="file" required="" id="id_file">
+            {% if error %}
+                <p class="text-red-900">{{ error }} </p>
+            {% endif %}
+            <select class="w-full" name="target_instrument" id="id_target_instrument">
+                <option value="BASS">Bass</option>
+
+                <option value="BEAT">Drums and percussion</option>
+
+                <option value="VOCAL">Vocals</option>
+
+                <option value="OTHER">Others</option>
+
+            </select>
+            <button class="rounded-full bg-black text-white w-1/3 text-xl py-2" type="submit">
+                Unmix!
+            </button>
+        </form>
+    </div>
+    {% if success %}
+        <div class="u-container w-1/6 mt-6">
+            <p>
+                Your music is being processed
+            </p>
+            <a href="{% url 'profile' %}">click here</a> to see results
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
